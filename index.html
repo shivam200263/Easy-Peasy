@@ -105,7 +105,7 @@ button.alt{background:transparent;color:var(--accent);border:2px solid var(--acc
 <div id="plan"></div>
 </section>
 
-<p class="note">This is general guidance, not legal advice. Items marked “verify” come from sources we could not confirm on an official page. Check them before relying on them. Open source: anyone can correct a brand’s contact details or a rule by editing the <code>BRANDS</code> and <code>FEES</code> lists at the top of this file’s script.</p>
+<p class="note">This is general guidance, not legal advice. Items marked “verify” could not be confirmed on an official page, so check them before relying on them. This project is open source: anyone can correct a brand’s contact details or a rule on <a href="https://github.com/shivam200263/Easy-Peasy">GitHub</a>.</p>
 </main>
 
 <script>
@@ -191,7 +191,7 @@ Relief sought: ${want}.
 Company grievance officer contacted: yes, on [date]. No resolution.
 
 ${sign()}`;
-  const f = fee(val("price"));
+  const f = Number(val("price"))>0 ? fee(val("price")) : null;
   return `BEFORE THE ${f?f[1].toUpperCase():"[DISTRICT]"} CONSUMER DISPUTES REDRESSAL COMMISSION
 
 Complainant: ${or(val("name"),"[Name]")}, ${or(val("address"),"[Address]")}
@@ -221,12 +221,12 @@ Verification: I, ${or(val("name"),"[Name]")}, state that the contents above are 
 Place: [city]   Date: [date]   Signature: __________`;
 }
 function plan(){
-  const b = BRANDS[val("brand")], s = +val("stage"), f = fee(val("price"));
+  const b = BRANDS[val("brand")], s = +val("stage"), f = Number(val("price"))>0 ? fee(val("price")) : null;
   const steps = [
     ["Service centre or seller", "Get a written complaint number. Keep every reply."],
     ["Company grievance officer", `Expect an acknowledgement in 48 hours and a resolution within one month.${s===2?` If you send today, that is by ${addDays(2)} and ${addDays(30)}.`:""}`],
     ["National Consumer Helpline", `Call 1915 or register at <a href="${PORTAL.nch}">consumerhelpline.gov.in</a>. Free mediation. Keep the complaint number.`],
-    ["Consumer Commission", `File online at <a href="${PORTAL.court}">e-Jagriti</a>. You do not need a lawyer.${f?` For ${inr(val("price"))} this is the <b>${f[1]} Commission</b>, filing fee <b>${f[2]===0?"nil":inr(f[2])}</b>.`:" Enter the price paid to see the commission and fee."}`]
+    ["Consumer Commission", `File online at <a href="${PORTAL.court}">e-Jagriti</a>. You do not need a lawyer.${f?` For a product that cost ${inr(val("price"))}, file with the <b>${f[1]} Commission</b>. The filing fee is <b>${f[2]===0?"nil (free)":inr(f[2])}</b>.`:" Enter the price you paid above to see which commission to approach and the fee."}`]
   ];
   $("plan").innerHTML = steps.map((t,i)=>`<div class="step${i+1===s?" on":""}"><b>${t[0]}</b><br>${t[1]}</div>`).join("");
   const tag = {ok:'<span class="tag ok">confirmed</span>',verify:'<span class="tag warn">verify</span>',missing:'<span class="tag warn">add contact</span>'}[b.status];
