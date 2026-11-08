@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easy Peasy: faulty laptop or electronics complaint (India)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f7;--card:#fff;--ink:#14232b;--mute:#4f6470;--line:#cfd9df;--accent:#1f5fbf;--accent-ink:#fff;--ok:#2e7d5b;--warn:#a5480a}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1a20;--card:#17262e;--ink:#e8f0f4;--mute:#9db2bd;--line:#2c414c;--accent:#6fa3f0;--accent-ink:#0b1620;--ok:#5cc79a;--warn:#f0a15c}}
+*{box-sizing:border-box}
+html{scroll-padding-top:12px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+main{max-width:680px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:1.7rem;line-height:1.2;margin:8px 0 6px}
+h2{font-size:1.15rem;margin:0 0 10px}
+p{margin:0 0 10px}
+.lead{color:var(--mute)}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+label{display:block;font-weight:700;margin:12px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.row{grid-template-columns:1fr}}
+.hint{font-size:.9rem;color:var(--mute);margin-top:4px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+button,.btn{font:inherit;font-weight:700;background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:11px 16px;cursor:pointer;text-decoration:none;display:inline-block}
+button.alt{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+#letter{min-height:320px;font-size:.95rem;white-space:pre-wrap}
+.step{border-left:4px solid var(--line);padding:2px 0 2px 12px;margin:10px 0}
+.step.on{border-color:var(--accent)}
+.tag{font-size:.85rem;font-weight:700;border-radius:6px;padding:1px 7px;margin-left:6px}
+.tag.ok{color:var(--ok);border:1px solid var(--ok)}
+.tag.warn{color:var(--warn);border:1px solid var(--warn)}
+.note{font-size:.9rem;color:var(--mute);border-top:1px solid var(--line);padding-top:12px;margin-top:20px}
+</style>
+</head>
+<body>
+<main>
+<h1>Faulty laptop or electronics? Get your complaint ready.</h1>
+<p class="lead">Answer a few questions. You get a letter to send, the next step if the company stays silent, and the court fee if it comes to that.</p>
+
+<section id="form">
+<h2>About your product</h2>
+<label for="brand">Brand</label>
+<select id="brand"></select>
+<div id="brandInfo" class="hint"></div>
+<div class="row">
+<div><label for="product">Product</label><input id="product" placeholder="Laptop, refrigerator…"></div>
+<div><label for="model">Model</label><input id="model"></div>
+</div>
+<div class="row">
+<div><label for="serial">Serial number</label><input id="serial"></div>
+<div><label for="seller">Bought from</label><input id="seller" placeholder="Store or website"></div>
+</div>
+<div class="row">
+<div><label for="buyDate">Purchase date</label><input id="buyDate" type="date"></div>
+<div><label for="price">Price paid (₹)</label><input id="price" type="number" inputmode="numeric" min="0"></div>
+</div>
+<label for="issue">What went wrong, and when?</label>
+<textarea id="issue" placeholder="Example: Screen went black on 2 March. Service centre said the part is not available."></textarea>
+<label for="tried">What have you already tried?</label>
+<textarea id="tried" placeholder="Visits, calls, emails, with dates"></textarea>
+<div class="row">
+<div><label for="ticket">Complaint or case number</label><input id="ticket"></div>
+<div><label for="ticketDate">Date of that complaint</label><input id="ticketDate" type="date"></div>
+</div>
+<label for="outcome">What do you want?</label>
+<select id="outcome">
+<option value="repair">Free repair</option>
+<option value="replace">Replacement</option>
+<option value="refund" selected>Refund</option>
+</select>
+<h2 style="margin-top:20px">About you</h2>
+<div class="row">
+<div><label for="name">Full name</label><input id="name" autocomplete="name"></div>
+<div><label for="phone">Phone</label><input id="phone" type="tel" autocomplete="tel"></div>
+</div>
+<label for="email">Email</label><input id="email" type="email" autocomplete="email">
+<label for="address">Address</label><textarea id="address" autocomplete="street-address" style="min-height:60px"></textarea>
+<p class="hint">Nothing is sent or stored. Everything stays in this page on your device.</p>
+</section>
+
+<section>
+<h2>Which letter do you need?</h2>
+<select id="stage">
+<option value="1">1. First complaint to the service centre or seller</option>
+<option value="2">2. Escalate to the company’s grievance officer</option>
+<option value="3">3. Text for the National Consumer Helpline (1915)</option>
+<option value="4">4. Draft for the Consumer Commission</option>
+</select>
+<label for="letter">Your letter</label>
+<textarea id="letter" aria-live="polite"></textarea>
+<div class="btns">
+<button id="copy">Copy letter</button>
+<a id="mail" class="btn alt" href="#">Open in email app</a>
+</div>
+<p class="hint" id="copied" role="status"></p>
+</section>
+
+<section>
+<h2>What happens next</h2>
+<div id="plan"></div>
+</section>
+
+<p class="note">This is general guidance, not legal advice. Items marked “verify” come from sources we could not confirm on an official page. Check them before relying on them. Open source: anyone can correct a brand’s contact details or a rule by editing the <code>BRANDS</code> and <code>FEES</code> lists at the top of this file’s script.</p>
+</main>
+
+<script>
+/* ---------- DATA: edit these to add brands or fix rules ---------- */
+const BRANDS = {
+  dell:   {name:"Dell", email:"grievanceofficer@dell.com", status:"ok", note:"Listed on Dell India’s Contact Us page. Dell asks for your case number, so include it.", page:"https://www.dell.com/en-in/lp/contact-us"},
+  hp:     {name:"HP", email:"opsmanager@hp.com", status:"verify", note:"From a third-party site. Confirm on HP India’s official page.", page:""},
+  lenovo: {name:"Lenovo", email:"", status:"missing", note:"Official escalation page lists the contacts.", page:"https://www.lenovo.com/in/en/customer-escalation-matrix"},
+  asus:   {name:"ASUS", email:"", status:"missing", note:"Find the grievance officer on ASUS India’s website.", page:""},
+  acer:   {name:"Acer", email:"", status:"missing", note:"Find the grievance officer on Acer India’s website.", page:""},
+  other:  {name:"Other brand", email:"", status:"missing", note:"Look for “Grievance Officer” at the bottom of the company’s website.", page:""}
+};
+const PORTAL = {nch:"https://consumerhelpline.gov.in", court:"https://e-jagriti.gov.in"};
+const FEES = [ /* upper limit of price paid in ₹, commission, fee in ₹ */
+  [500000,"District",0],[1000000,"District",200],[2000000,"District",400],[5000000,"District",1000],
+  [10000000,"State",2000],[20000000,"State",2500],
+  [40000000,"National",3000],[60000000,"National",4000],[80000000,"National",5000],[100000000,"National",6000],[Infinity,"National",7500]
+];
+/* ------------------------------------------------------------------ */
+const $ = id => document.getElementById(id);
+const F = ["brand","product","model","serial","seller","buyDate","price","issue","tried","ticket","ticketDate","outcome","name","phone","email","address","stage"];
+const OUT = {repair:"repair of the product free of charge",replace:"replacement with a new product",refund:"a full refund of the amount paid"};
+
+$("brand").innerHTML = Object.entries(BRANDS).map(([k,b]) => `<option value="${k}">${b.name}</option>`).join("");
+
+const fmtDate = s => s ? new Date(s+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}) : "[date]";
+const val = id => $(id).value.trim();
+const or = (s,d) => s || d;
+function addDays(n){const d=new Date();d.setDate(d.getDate()+n);return d.toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"});}
+function fee(price){const p=Number(price)||0;return FEES.find(f=>p<=f[0]);}
+const inr = n => "₹" + Number(n).toLocaleString("en-IN");
+
+function facts(){
+  const b = BRANDS[val("brand")];
+  return `Product: ${b.name} ${or(val("product"),"[product]")}, model ${or(val("model"),"[model]")}, serial number ${or(val("serial"),"[serial number]")}
+Bought from: ${or(val("seller"),"[seller]")} on ${fmtDate(val("buyDate"))} for ${val("price")?inr(val("price")):"₹[amount]"}
+Problem: ${or(val("issue"),"[describe the problem and when it started]")}
+Action taken so far: ${or(val("tried"),"[visits, calls, emails with dates]")}
+Complaint/case number: ${or(val("ticket"),"[number]")}${val("ticketDate")?" dated "+fmtDate(val("ticketDate")):""}`;
+}
+function sign(){
+  return `${or(val("name"),"[Your name]")}
+${or(val("address"),"[Address]")}
+Phone: ${or(val("phone"),"[phone]")}  Email: ${or(val("email"),"[email]")}`;
+}
+function letter(){
+  const b = BRANDS[val("brand")], want = OUT[val("outcome")], s = val("stage");
+  const attach = "Attached: purchase invoice, warranty details, photos or video of the fault, and my earlier complaint records.";
+  if(s==="1") return `Subject: Complaint: faulty ${b.name} ${or(val("product"),"product")} under warranty
+
+To the Service Manager,
+
+My product developed a fault during the warranty period.
+
+${facts()}
+
+I request ${want}. Please acknowledge this complaint with a reference number and tell me the date by which the issue will be resolved.
+
+${attach}
+
+Sincerely,
+${sign()}`;
+  if(s==="2") return `Subject: Escalation to Grievance Officer: unresolved complaint ${or(val("ticket"),"[number]")}
+
+To the Grievance Officer, ${b.name} India,
+
+My complaint has not been resolved by customer support. I am escalating it to you.
+
+${facts()}
+
+I request ${want}. Please acknowledge this complaint within 48 hours and resolve it within one month of receipt. If it stays unresolved, I will approach the National Consumer Helpline and the Consumer Commission under the Consumer Protection Act, 2019.
+
+${attach}
+
+Sincerely,
+${sign()}`;
+  if(s==="3") return `Complaint for the National Consumer Helpline (1915 / consumerhelpline.gov.in)
+
+Company: ${b.name} India
+Sector: Electronics
+${facts()}
+Relief sought: ${want}.
+Company grievance officer contacted: yes, on [date]. No resolution.
+
+${sign()}`;
+  const f = fee(val("price"));
+  return `BEFORE THE ${f?f[1].toUpperCase():"[DISTRICT]"} CONSUMER DISPUTES REDRESSAL COMMISSION
+
+Complainant: ${or(val("name"),"[Name]")}, ${or(val("address"),"[Address]")}
+Opposite Party: ${b.name} India, and ${or(val("seller"),"[seller]")}
+
+COMPLAINT UNDER THE CONSUMER PROTECTION ACT, 2019
+
+1. Facts
+${facts()}
+
+2. Cause of action
+The product was defective during its warranty period, and the opposite parties failed to resolve it despite complaints. This is a deficiency in service and a defect in goods.
+
+3. Jurisdiction
+Value of goods paid as consideration: ${val("price")?inr(val("price")):"₹[amount]"}. I live or work within the area of this Commission.
+
+4. Relief sought
+(a) ${want[0].toUpperCase()+want.slice(1)}.
+(b) Compensation for mental agony and loss: ₹[amount].
+(c) Cost of this complaint: ₹[amount].
+
+5. List of documents
+(1) Invoice (2) Warranty terms (3) Photos or video (4) Complaint records (5) Replies, if any.
+
+Verification: I, ${or(val("name"),"[Name]")}, state that the contents above are true to the best of my knowledge.
+
+Place: [city]   Date: [date]   Signature: __________`;
+}
+function plan(){
+  const b = BRANDS[val("brand")], s = +val("stage"), f = fee(val("price"));
+  const steps = [
+    ["Service centre or seller", "Get a written complaint number. Keep every reply."],
+    ["Company grievance officer", `Expect an acknowledgement in 48 hours and a resolution within one month.${s===2?` If you send today, that is by ${addDays(2)} and ${addDays(30)}.`:""}`],
+    ["National Consumer Helpline", `Call 1915 or register at <a href="${PORTAL.nch}">consumerhelpline.gov.in</a>. Free mediation. Keep the complaint number.`],
+    ["Consumer Commission", `File online at <a href="${PORTAL.court}">e-Jagriti</a>. You do not need a lawyer.${f?` For ${inr(val("price"))} this is the <b>${f[1]} Commission</b>, filing fee <b>${f[2]===0?"nil":inr(f[2])}</b>.`:" Enter the price paid to see the commission and fee."}`]
+  ];
+  $("plan").innerHTML = steps.map((t,i)=>`<div class="step${i+1===s?" on":""}"><b>${t[0]}</b><br>${t[1]}</div>`).join("");
+  const tag = {ok:'<span class="tag ok">confirmed</span>',verify:'<span class="tag warn">verify</span>',missing:'<span class="tag warn">add contact</span>'}[b.status];
+  $("brandInfo").innerHTML = `${b.email?`Grievance officer: ${b.email} `:""}${tag}<br>${b.note}${b.page?` <a href="${b.page}">Official page</a>`:""}`;
+}
+function render(){
+  $("letter").value = letter();
+  plan();
+  const b = BRANDS[val("brand")], s = val("stage");
+  const subj = ($("letter").value.match(/^Subject: (.*)$/m)||[,"Complaint"])[1];
+  const to = s==="2" ? b.email : "";
+  const body = $("letter").value.replace(/^Subject: .*\n\n/,"");
+  $("mail").href = `mailto:${to}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+}
+F.forEach(id => $(id).addEventListener("input", render));
+$("copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("letter").value); $("copied").textContent = "Letter copied."; }
+  catch(e){ $("letter").select(); $("copied").textContent = "Select and copy the text above."; }
+});
+render();
+</script>
+</body>
+</html>
